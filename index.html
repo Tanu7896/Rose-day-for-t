@@ -2,17 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For My Deepika (Taashu) 🌹</title>
+<title>For Deepika (Taashu) 🌹</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',sans-serif;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 body{
   height:100vh;
   background:linear-gradient(to right,#ff4b5c,#ff9a9e);
@@ -29,10 +23,9 @@ body{
   justify-content:center;
   opacity:0;
   transform:scale(1.05);
-  transition:opacity 0.8s ease, transform 0.8s ease;
+  transition:0.8s;
   pointer-events:none;
 }
-
 .section.active{
   opacity:1;
   transform:scale(1);
@@ -42,66 +35,68 @@ body{
 /* Card */
 .card{
   background:rgba(0,0,0,0.35);
-  padding:30px;
+  padding:28px;
   border-radius:22px;
   text-align:center;
   width:330px;
   box-shadow:0 0 30px rgba(0,0,0,0.4);
 }
 
-h1,h2{
-  margin-bottom:10px;
-}
-
-p{
-  line-height:1.6;
-}
-
 button{
-  margin-top:14px;
-  padding:12px 26px;
+  margin-top:12px;
+  padding:12px;
+  width:100%;
   border:none;
   border-radius:30px;
   background:#ffccd5;
   color:#b3001b;
   font-weight:bold;
   cursor:pointer;
-  width:100%;
 }
 
-.music-btn{
-  background:#fff;
-  color:#b3001b;
-}
+.music-btn{background:#fff;}
 
-/* Input */
 input{
-  margin-top:12px;
+  margin-top:10px;
   padding:10px;
+  width:100%;
   border-radius:20px;
   border:none;
-  width:100%;
   text-align:center;
-  outline:none;
 }
 
-/* Heart rain */
+/* Falling hearts */
 .heart{
   position:fixed;
   top:-10px;
   font-size:18px;
   animation:fall 4s linear infinite;
 }
-
 @keyframes fall{
   to{transform:translateY(110vh);opacity:0;}
+}
+
+/* Confetti */
+.confetti{
+  position:fixed;
+  top:-10px;
+  width:8px;
+  height:12px;
+  background:red;
+  animation:confettiFall 3s linear forwards;
+}
+@keyframes confettiFall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+    opacity:0;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Background Music -->
+<!-- MUSIC -->
 <audio id="music" loop>
   <source src="perfect.mp3" type="audio/mpeg">
 </audio>
@@ -110,11 +105,7 @@ input{
 <div class="section active">
   <div class="card">
     <h1>Happy Rose Day 🌹</h1>
-    <p>
-      Dear <b>Deepika</b> 💖<br>
-      My cute <b>Taashu</b>
-    </p>
-
+    <p>Dear <b>Deepika</b><br>My cute <b>Taashu</b> 💖</p>
     <button class="music-btn" onclick="toggleMusic()">▶ Play Song 🎶</button>
     <button onclick="next()">Start 💌</button>
   </div>
@@ -124,12 +115,7 @@ input{
 <div class="section">
   <div class="card">
     <h2>Why I Love You 💖</h2>
-    <p>
-      Your smile heals me.<br>
-      Your voice feels like home.<br>
-      You are my peace.
-      tumhe reasons chaiye ab?😝
-    </p>
+    <p>Your smile heals me.<br>Your voice feels like home.<br>You are my peace.</p>
     <button onclick="next()">Next ➜</button>
   </div>
 </div>
@@ -138,12 +124,7 @@ input{
 <div class="section">
   <div class="card">
     <h2>Our Memories 🌸</h2>
-    <p>
-      late night talks🌙<br>
-      Endless laughter 😄<br>
-      Missing you always 💭
-      and bahut kuch ❤️
-    </p>
+    <p>Late night talks 🌙<br>Laughs 😄<br>Missing you 💭</p>
     <button onclick="next()">Next ➜</button>
   </div>
 </div>
@@ -152,85 +133,85 @@ input{
 <div class="section">
   <div class="card">
     <h2>My Promise 🤞</h2>
-    <p>
-      I promise to stay.<br>
-      I promise to fight distance(and your lips too 🫦).<br>
-      I promise you — always.
-    </p>
-    <button onclick="next()">Final Gift 🎁</button>
+    <p>I promise to stay.<br>Fight distance.<br>Choose you always.</p>
+    <button onclick="next()">Mini Game 🎮</button>
   </div>
 </div>
 
-<!-- SECTION 5 (PASSWORD LOCKED) -->
+<!-- MEMORY GAME -->
+<div class="section">
+  <div class="card">
+    <h2>Love Meter 💗</h2>
+    <p>Match cards to fill my love 💕</p>
+
+    <div style="background:#ffd1d9;border-radius:20px;height:18px;overflow:hidden;">
+      <div id="loveBar" style="height:100%;width:0%;background:#b3001b;transition:0.4s;"></div>
+    </div>
+    <p id="loveText">Love: 0%</p>
+
+    <div id="gameBoard" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;"></div>
+
+    <p id="matchMsg"></p>
+    <button id="gameNextBtn" style="display:none;" onclick="next()">Continue 💝</button>
+  </div>
+</div>
+
+<!-- FINAL PASSWORD -->
 <div class="section">
   <div class="card">
     <h2>Final Surprise 🔐</h2>
-
-    <p style="font-size:14px;opacity:0.9;">
-      The person who loves <b>Sonu</b> the most 💖
-    </p>
-
+    <p style="font-size:14px;">The person who loves <b>Sonu</b> the most 💖</p>
     <input type="password" id="password" placeholder="Enter the secret name">
-
     <button onclick="unlock()">Unlock 💝</button>
-
-    <p id="error" style="display:none;font-size:14px;color:#ffd1d9;">
-      That’s not it… but love is close ❤️
-    </p>
+    <p id="error" style="display:none;font-size:14px;">Almost… ❤️</p>
 
     <div id="finalMessage" style="display:none;margin-top:15px;">
       <h1>Taashu ❤️</h1>
       <p>
-        This whole website was my gift 🌹<br><br>
+        This website was my gift 🌹<br><br>
         But the real gift is<br>
-        my heart — already yours Sonu💍<br><br>
+        my heart — already yours 💍<br><br>
         Forever & Always 💖
-        you will be mine and i will be yours 😁
-        i dont know what would i be without you💝
       </p>
     </div>
   </div>
 </div>
 
 <script>
-/* Section transitions */
-let current = 0;
-const sections = document.querySelectorAll(".section");
-
+/* SECTION NAVIGATION */
+let current=0;
+const sections=document.querySelectorAll(".section");
 function next(){
   sections[current].classList.remove("active");
   current++;
-  if(current >= sections.length) current = sections.length - 1;
   sections[current].classList.add("active");
 }
 
-/* Music controls */
-const music = document.getElementById("music");
-music.volume = 0.5;
-
+/* MUSIC */
+const music=document.getElementById("music");
+music.volume=0.5;
 function toggleMusic(){
-  const btn = document.querySelector(".music-btn");
+  const btn=document.querySelector(".music-btn");
   if(music.paused){
     music.play();
-    btn.innerHTML = "⏸ Pause Song";
+    btn.innerText="⏸ Pause Song";
   }else{
     music.pause();
-    btn.innerHTML = "▶ Play Song 🎶";
+    btn.innerText="▶ Play Song 🎶";
   }
 }
 
-/* Password unlock */
+/* PASSWORD */
 function unlock(){
-  const pass = document.getElementById("password").value;
-  if(pass === "Deepika"){
-    document.getElementById("finalMessage").style.display = "block";
-    document.getElementById("error").style.display = "none";
+  if(document.getElementById("password").value==="Deepika"){
+    document.getElementById("finalMessage").style.display="block";
+    document.getElementById("error").style.display="none";
   }else{
-    document.getElementById("error").style.display = "block";
+    document.getElementById("error").style.display="block";
   }
 }
 
-/* Heart rain */
+/* FALLING HEARTS */
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
@@ -239,6 +220,77 @@ setInterval(()=>{
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),4000);
 },300);
+
+/* CONFETTI */
+function launchConfetti(){
+  for(let i=0;i<60;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+
+/* MEMORY GAME */
+const symbols=["❤️","❤️","🌹","🌹","💍","💍","💕","💕"];
+let first=null,second=null,lock=false,matched=0;
+const board=document.getElementById("gameBoard");
+const loveBar=document.getElementById("loveBar");
+const loveText=document.getElementById("loveText");
+
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+}
+shuffle(symbols);
+
+symbols.forEach(s=>{
+  const c=document.createElement("div");
+  c.innerText="❓";
+  c.dataset.sym=s;
+  c.style.cssText="background:#fff;color:#b3001b;font-size:24px;padding:15px;border-radius:12px;cursor:pointer";
+  c.onclick=()=>flip(c);
+  board.appendChild(c);
+});
+
+function flip(card){
+  if(lock||card===first||card.innerText!=="❓")return;
+  card.innerText=card.dataset.sym;
+  if(!first){first=card;return;}
+  second=card;check();
+}
+
+function check(){
+  if(first.dataset.sym===second.dataset.sym){
+    matched++;
+    update();
+    reset();
+    if(matched===4){
+      document.getElementById("matchMsg").innerText="Love is 100% 💖";
+      document.getElementById("gameNextBtn").style.display="block";
+      launchConfetti();
+    }
+  }else{
+    lock=true;
+    setTimeout(()=>{
+      first.innerText="❓";
+      second.innerText="❓";
+      reset();
+    },700);
+  }
+}
+
+function update(){
+  const p=(matched/4)*100;
+  loveBar.style.width=p+"%";
+  loveText.innerText="Love: "+p+"%";
+}
+
+function reset(){[first,second]=[null,null];lock=false;}
 </script>
 
 </body>
